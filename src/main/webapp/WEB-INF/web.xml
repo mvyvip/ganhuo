@@ -1,7 +1,64 @@
-<!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
-
-<web-app>
-  <display-name>Archetype Created Web Application</display-name>
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+  version="3.0"  metadata-complete="true">
+  
+  	<!-- 所有servlet和过滤器共享的根Spring容器的定义 -->
+	<context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:spring-root.xml</param-value>
+    </context-param>
+    
+    <!-- 创建Spring容器所有servlet和过滤器共享 -->
+	<listener>  
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    
+    <!-- 配置SringMVC的核心类,DispatcherServlet初始化时，Spring容器也被初始化了 -->
+	<servlet>
+		<servlet-name>springMVC</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:spring-servlet.xml</param-value>
+		</init-param>
+		<!-- 启动时初始化这个Servlet -->
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>springMVC</servlet-name>
+		<url-pattern>/*</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 对请求数据转码 -->
+	<filter>
+		<filter-name>characterEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>utf-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>characterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+    
+    <!-- HHTP会话管理 -->
+	<session-config>
+		<!-- session 超时时间 -->
+		<session-timeout>30</session-timeout>
+		<cookie-config>
+			<!-- 只针对于http -->
+			<http-only>true</http-only>
+			<!-- cookie 最长的保存时间(一个月) #{30 * 24 * 60 * 60}  -->
+			<max-age>2592000</max-age>
+		</cookie-config>
+	</session-config>
 </web-app>

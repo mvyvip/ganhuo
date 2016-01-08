@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class TestController {
 	@ResponseBody
-	@RequestMapping("/test")
+	@RequestMapping("/index")
 	public Map<String,Object> test() {
 		System.out.println("TestController.test()");
 		Map<String,Object> m = new HashMap<>();

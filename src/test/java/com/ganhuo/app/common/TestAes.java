@@ -2,7 +2,7 @@ package com.ganhuo.app.common;
 
 import org.junit.Test;
 
-import com.ganhuo.app.com.Aes;
+import com.ganhuo.app.common.Aes;
 
 public class TestAes {
 

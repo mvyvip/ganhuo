@@ -14,7 +14,7 @@
  * The author does not guarantee the quality of the project and its stability, reliability, and security does not bear any responsibility.
  * 作者不保证本项目质量并对其稳定性、可靠性和安全性不承担任何责任.
  */
-package com.ganhuo.app.com;
+package com.ganhuo.app.common;
 
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;

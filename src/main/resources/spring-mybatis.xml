@@ -7,7 +7,7 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
 	 <!-- 读取jdbc配置 -->
-	<bean class="com.ganhuo.app.com.EncryptablePropertyPlaceholderConfigurer">
+	<bean class="com.ganhuo.app.common.EncryptablePropertyPlaceholderConfigurer">
 		<constructor-arg name="key" value="362C1E982014B30D73DFCEAE0A" />
 		<property name="locations">
 			<list>

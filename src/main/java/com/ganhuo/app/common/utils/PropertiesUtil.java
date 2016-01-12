@@ -1,4 +1,4 @@
-package com.ganhuo.app.com.util;
+package com.ganhuo.app.common.utils;
 
 import java.io.IOException;
 import java.util.HashMap;

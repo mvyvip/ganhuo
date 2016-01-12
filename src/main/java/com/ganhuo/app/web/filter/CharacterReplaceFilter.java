@@ -8,8 +8,11 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+
 
 /**
  * <h2>特殊字符请求过滤器</h2>
@@ -33,19 +36,23 @@ public class CharacterReplaceFilter implements Filter{
 	}
 
 	@Override
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
-		//对request和response进行一些预处理
-		request.setCharacterEncoding("UTF-8");
-		response.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html;charset=UTF-8");
-		System.out.println("CharacterReplaceFilter.doFilter()");
-		chain.doFilter(request, response);
+	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+		HttpServletRequest request = (HttpServletRequest) servletRequest;
+		HttpServletResponse response = (HttpServletResponse) servletResponse;
+		
+		String method = request.getMethod();
+		if("PUT".equalsIgnoreCase(method) || "POST".equalsIgnoreCase(method)|| "GET".equalsIgnoreCase(method)) {
+			log.debug("next CharacterReplaceFilter=>");
+			KeyWordRequestWrapper wrapper = new KeyWordRequestWrapper(request);
+			filterChain.doFilter(wrapper, response);
+		}else {
+			filterChain.doFilter(request, response);
+		}
 	}
 
 	@Override
 	public void destroy() {
 		log.debug("CharacterReplaceFilter.destroy()");
 	}
-
+	
 }
